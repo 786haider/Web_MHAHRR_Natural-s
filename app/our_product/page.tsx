@@ -2,6 +2,19 @@
 
 import { useState } from "react";
 
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+  inStock: boolean;
+  tag: string;
+  image: string;
+  accent: string;
+};
+
 // ─── Data ────────────────────────────────────────────────────────────────────
 
 const PRODUCTS = [
@@ -62,7 +75,7 @@ const CATEGORIES = ["All Products", "Face Care", "Hair Care", "Skin Care"];
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
 import Image from 'next/image';
-function ProductCard({ product }) {
+function ProductCard({ product }: { product: Product }) {
   const [added, setAdded] = useState(false);
 
   const handleAddToCart = () => {
@@ -239,7 +252,13 @@ function ProductCard({ product }) {
   );
 }
 
-function FilterSidebar({ priceRange, setPriceRange, availability, setAvailability, onClear }) {
+function FilterSidebar({ priceRange, setPriceRange, availability, setAvailability, onClear }: {
+  priceRange: number;
+  setPriceRange: (value: number) => void;
+  availability: string;
+  setAvailability: (value: string) => void;
+  onClear: () => void;
+}) {
   return (
     <aside className="sidebar">
       <div className="sidebar-header">
