@@ -107,12 +107,12 @@ function ProductCard({ product }: { product: Product }) {
              autoPlay
            />
         ) : (
-          <Image
-            src={product.image}
-            // alt={product.name}
-            fill
-            className="product-media"
-          />
+            <Image
+             src={product.image}
+             alt={product.name}
+             fill
+             className="product-media"
+           />
         )}
         <span className="card-tag">{product.tag}</span>
         <span className={`stock-badge ${product.inStock ? "in" : "out"}`}>
