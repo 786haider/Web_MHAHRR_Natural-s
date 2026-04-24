@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MHAHRR Natural",
+  title: "MHAHRR Natural's",
   description: "Healing Solutions",
   icons: {
     icon: "/logo/logo_without_text_bgremove.png",
