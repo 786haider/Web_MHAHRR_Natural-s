@@ -45,7 +45,7 @@ const PRODUCTS = [
     category: "Hair Care",
     inStock: true,
     tag: "New",
-    image: "/product.png",
+    image: "/product_img/oilImg2.png",
     accent: "#A8C96E",
   },
   {
@@ -68,6 +68,16 @@ const PRODUCTS = [
     image: "/product.png",
     accent: "#74C69D",
   },
+  {
+    id: 6,
+    name: "Oil Gone - Hair Solution",
+    price: 18.99,
+    category: "Hair Care",
+    inStock: true,
+    tag: "Featured",
+    image: "/product_img/oilImgone.mp4",
+    accent: "#D4A574",
+  },
 ];
 
 const CATEGORIES = ["All Products", "Face Care", "Hair Care", "Skin Care"];
@@ -77,6 +87,7 @@ const CATEGORIES = ["All Products", "Face Care", "Hair Care", "Skin Care"];
 import Image from 'next/image';
 function ProductCard({ product }: { product: Product }) {
   const [added, setAdded] = useState(false);
+  const isVideo = product.image.endsWith(".mp4") || product.image.endsWith(".webm") || product.image.endsWith(".mov");
 
   const handleAddToCart = () => {
     setAdded(true);
@@ -86,13 +97,24 @@ function ProductCard({ product }: { product: Product }) {
   return (
     <div className="card">
       <div className="card-img-wrap">
-        <Image
-          src={product.image}
-          alt={product.name}
-          width={200} // Example width, adjust as needed
-          height={200} // Example height, adjust as needed
-          className="product-image"
-        />
+        {isVideo ? (
+          <video
+            src={product.image}
+            alt={product.name}
+            className="product-media"
+            muted
+            loop
+            playsInline
+            autoPlay
+          />
+        ) : (
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            className="product-media"
+          />
+        )}
         <span className="card-tag">{product.tag}</span>
         <span className={`stock-badge ${product.inStock ? "in" : "out"}`}>
           {product.inStock ? "In Stock" : "Out of Stock"}
@@ -132,7 +154,8 @@ function ProductCard({ product }: { product: Product }) {
         }
         .card-img-wrap {
           position: relative;
-          height: 200px;
+          width: 100%;
+          aspect-ratio: 1 / 1;
           overflow: hidden;
         }
         .card-img-placeholder {
@@ -143,6 +166,11 @@ function ProductCard({ product }: { product: Product }) {
             color-mix(in srgb, var(--accent) 30%, #d4edda),
             color-mix(in srgb, var(--accent) 60%, #a8d5b5)
           );
+        }
+        .product-media {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
         .card-tag {
           position: absolute;
@@ -246,6 +274,56 @@ function ProductCard({ product }: { product: Product }) {
         }
         .btn-view:hover .arrow {
           transform: translateX(4px);
+        }
+
+        /* Responsive adjustments for ProductCard */
+        @media (max-width: 768px) {
+          .card-tag {
+            font-size: 10px;
+            padding: 3px 8px;
+            top: 10px;
+            left: 10px;
+          }
+          .stock-badge {
+            font-size: 10px;
+            padding: 3px 8px;
+            top: 10px;
+            right: 10px;
+          }
+          .card-title {
+            font-size: 0.95rem;
+          }
+          .card-price {
+            font-size: 1.05rem;
+          }
+          .btn-cart, .btn-view {
+            font-size: 12px;
+            padding: 8px 12px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .card-tag {
+            font-size: 9px;
+            padding: 2px 6px;
+          }
+          .stock-badge {
+            font-size: 9px;
+            padding: 2px 6px;
+          }
+          .card-body {
+            padding: 14px 14px 16px;
+          }
+          .card-title {
+            font-size: 0.9rem;
+          }
+          .card-price {
+            font-size: 1rem;
+          }
+          .btn-cart, .btn-view {
+            font-size: 11px;
+            padding: 7px 10px;
+          }
         }
       `}</style>
     </div>
@@ -557,63 +635,96 @@ export default function ProductsPage() {
           font-weight: 700;
         }
 
-        /* ─ Grid ─ */
-        .grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-          gap: 22px;
-        }
+         /* ─ Grid ─ */
+         .grid {
+           display: grid;
+           grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+           gap: 22px;
+         }
 
-        /* ─ Empty State ─ */
-        .empty-state {
-          grid-column: 1 / -1;
-          text-align: center;
-          padding: 60px 20px;
-          color: #5a8c6e;
-        }
-        .empty-state span {
-          font-size: 48px;
-          display: block;
-          margin-bottom: 12px;
-        }
-        .empty-state p {
-          font-size: 16px;
-          margin-bottom: 20px;
-        }
-        .clear-all-btn {
-          background: #2d6a4f;
-          color: #fff;
-          border: none;
-          border-radius: 10px;
-          padding: 10px 24px;
-          font-size: 14px;
-          font-weight: 600;
-          cursor: pointer;
-          font-family: "DM Sans", sans-serif;
-          transition: background 0.2s;
-        }
-        .clear-all-btn:hover {
-          background: #1a4a35;
-        }
+         /* ─ Empty State ─ */
+         .empty-state {
+           grid-column: 1 / -1;
+           text-align: center;
+           padding: 60px 20px;
+           color: #5a8c6e;
+         }
+         .empty-state span {
+           font-size: 48px;
+           display: block;
+           margin-bottom: 12px;
+         }
+         .empty-state p {
+           font-size: 16px;
+           margin-bottom: 20px;
+         }
+         .clear-all-btn {
+           background: #2d6a4f;
+           color: #fff;
+           border: none;
+           border-radius: 10px;
+           padding: 10px 24px;
+           font-size: 14px;
+           font-weight: 600;
+           cursor: pointer;
+           font-family: "DM Sans", sans-serif;
+           transition: background 0.2s;
+         }
+         .clear-all-btn:hover {
+           background: #1a4a35;
+         }
 
-        /* ─ Responsive ─ */
-        @media (max-width: 768px) {
-          .layout {
-            flex-direction: column;
-            padding: 20px 16px;
-          }
-          .category-bar {
-            padding: 12px 16px;
-          }
-          .sidebar {
-            width: 100% !important;
-            position: static !important;
-          }
-          .grid {
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 14px;
-          }
-        }
+         /* ─ Responsive ─ */
+         @media (max-width: 1024px) {
+           .grid {
+             grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+             gap: 18px;
+           }
+         }
+
+         @media (max-width: 768px) {
+           .layout {
+             flex-direction: column;
+             padding: 20px 16px;
+           }
+           .category-bar {
+             padding: 12px 16px;
+           }
+           .sidebar {
+             width: 100% !important;
+             position: static !important;
+           }
+           .grid {
+             grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
+             gap: 14px;
+           }
+           .card-img-wrap {
+             aspect-ratio: 4/3;
+           }
+         }
+
+         @media (max-width: 480px) {
+           .grid {
+             grid-template-columns: repeat(2, 1fr);
+             gap: 10px;
+           }
+           .card-body {
+             padding: 12px 12px 14px;
+           }
+           .card-title {
+             font-size: 0.9rem;
+           }
+           .card-price {
+             font-size: 1rem;
+           }
+           .card-actions {
+             gap: 6px;
+           }
+           .btn-cart, .btn-view {
+             font-size: 11px;
+             padding: 7px 10px;
+           }
+         }
       `}</style>
     </div>
   );
