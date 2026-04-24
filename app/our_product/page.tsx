@@ -109,7 +109,7 @@ function ProductCard({ product }: { product: Product }) {
         ) : (
           <Image
             src={product.image}
-            alt={product.name}
+            // alt={product.name}
             fill
             className="product-media"
           />
