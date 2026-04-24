@@ -98,15 +98,15 @@ function ProductCard({ product }: { product: Product }) {
     <div className="card">
       <div className="card-img-wrap">
         {isVideo ? (
-          <video
-            src={product.image}
-            alt={product.name}
-            className="product-media"
-            muted
-            loop
-            playsInline
-            autoPlay
-          />
+           <video
+             src={product.image}
+             aria-label={product.name}
+             className="product-media"
+             muted
+             loop
+             playsInline
+             autoPlay
+           />
         ) : (
           <Image
             src={product.image}
