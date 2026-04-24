@@ -98,10 +98,9 @@ function ProductCard({ product }: { product: Product }) {
     <div className="card">
       <div className="card-img-wrap">
         {isVideo ? (
-           <video
-             src={product.image}
-             aria-label={product.name}
-             className="product-media"
+            <video
+              src={product.image}
+              className="product-media"
              muted
              loop
              playsInline
