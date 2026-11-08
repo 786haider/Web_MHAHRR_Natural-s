@@ -204,7 +204,7 @@ export default function Home() {
           <div className="flex justify-center items-center gap-12 flex-wrap">
             {/* Instagram */}
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/mhahrrnaturals/"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex flex-col items-center gap-4 transition-all duration-300 hover:scale-125 cursor-pointer"
@@ -220,7 +220,7 @@ export default function Home() {
 
             {/* TikTok */}
             <a
-              href="https://tiktok.com"
+              href="https://www.tiktok.com/@mhahrr.naturals"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex flex-col items-center gap-4 transition-all duration-300 hover:scale-125 cursor-pointer"
@@ -235,7 +235,7 @@ export default function Home() {
 
             {/* Facebook */}
             <a
-              href="https://facebook.com"
+              href="https://www.instagram.com/mhahrrnaturals/"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex flex-col items-center gap-4 transition-all duration-300 hover:scale-125 cursor-pointer"
@@ -250,7 +250,7 @@ export default function Home() {
 
             {/* X (Twitter) */}
             <a
-              href="https://x.com"
+              href="https://x.com/Mhahrr_Naturals"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex flex-col items-center gap-4 transition-all duration-300 hover:scale-125 cursor-pointer"
@@ -265,7 +265,7 @@ export default function Home() {
 
             {/* LinkedIn */}
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/mhahrr-naturals-56376b39b/"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex flex-col items-center gap-4 transition-all duration-300 hover:scale-125 cursor-pointer"
