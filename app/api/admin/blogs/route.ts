@@ -180,3 +180,4 @@ export async function DELETE(req: Request) {
     return NextResponse.json({ error: 'Failed to delete blog article' }, { status: 500 });
   }
 }
+
