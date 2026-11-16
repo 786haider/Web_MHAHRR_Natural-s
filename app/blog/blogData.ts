@@ -1,0 +1,605 @@
+export interface BlogPost {
+  id: string;
+  slug: string;
+  tag: string;
+  hashtag: string;
+  count: string;
+  title: string;
+  subtitle: string;
+  category: string;
+  readTime: string;
+  publishDate: string;
+  author: string;
+  authorRole: string;
+  coverImage: string;
+  featured?: boolean;
+  excerpt: string;
+  content: {
+    intro: string;
+    sections: {
+      heading: string;
+      body: string;
+      bullets?: string[];
+    }[];
+    herbalityPledge: string;
+  };
+  keyTakeaways: string[];
+}
+
+export const BLOG_POSTS: BlogPost[] = [
+  {
+    id: 'mhahrr-naturals',
+    slug: 'mhahrr-naturals',
+    tag: 'MhahrrNaturals',
+    hashtag: '#MhahrrNaturals',
+    count: 'Official',
+    featured: true,
+    title: 'The Sacred Soul of Herbality: The MHAHRR Natural Story & Botanical Trinity',
+    subtitle: 'Reviving centuries-old herbal apothecary wisdom to bring authentic healing solutions to modern life.',
+    category: 'Brand Heritage & Herbality',
+    readTime: '5 min read',
+    publishDate: 'November 2025',
+    author: 'MHAHRR Natural Botanical Team',
+    authorRole: 'Master Herbal Formulator',
+    coverImage: '/displaying_images/homepage_herbality_image.png',
+    excerpt: 'Discover why MHAHRR Natural was founded upon the eternal pillars of Herbality, Purity, and Humanity. From local apothecary traditions to cold-pressed botanical purity, learn how our journey began.',
+    content: {
+      intro: 'In an era dominated by synthetic additives and mass-produced cosmetics, MHAHRR Natural was born out of a profound reverence for the timeless healing power of plants. Founded in Karachi in November 2025, our mission is simple yet sacred: to reconnect modern wellness with pure, unadulterated botanical wisdom.',
+      sections: [
+        {
+          heading: '1. The Trinity of Our Philosophy',
+          body: 'Everything we create at MHAHRR Natural is governed by our three guiding pillars: Herbality, Purity, and Humanity. Herbality signifies our commitment to living plants, whole-herb extracts, and centuries of proven apothecary formulations. Purity ensures zero sulfates, zero parabens, and absolute transparency. Humanity guarantees fair agricultural partnerships, ethical craft, and cruelty-free compassion for every living being.',
+          bullets: [
+            'Herbality: 100% whole plant and botanical synergy',
+            'Purity: Clean formulations free from toxic chemicals',
+            'Humanity: Cruelty-free compassion and community-supported farming',
+          ],
+        },
+        {
+          heading: '2. From Karachi to the World',
+          body: 'Our roots in Karachi allow us to source pristine indigenous herbs from local grower families. From sun-ripened organic castor and fresh wild neem to aromatic desi rose and soothing aloe, every harvest supports local biodiversity while providing unmatched therapeutic potency.',
+        },
+        {
+          heading: '3. A Promise of True Botanical Healing',
+          body: 'We do not formulate products simply to look good on a shelf. We formulate remedies to heal, restore, and elevate your daily wellness ritual with authentic botanical living energy.',
+        },
+      ],
+      herbalityPledge: 'Every drop is crafted with reverence for nature and respect for your health. What nature perfected, we simply deliver to you in its purest state.',
+    },
+    keyTakeaways: [
+      'Founded upon Herbality, Purity, and Humanity',
+      'Indigenous botanicals sourced from ethical local growers in Pakistan',
+      'Completely free from synthetic petrochemicals and artificial fillers',
+    ],
+  },
+  {
+    id: 'herbal-skincare',
+    slug: 'herbal-skincare',
+    tag: 'HerbalSkincare',
+    hashtag: '#HerbalSkincare',
+    count: 'Trending',
+    featured: true,
+    title: 'The Science of Herbality in Skincare: Why Living Botanicals Outperform Synthetics',
+    subtitle: 'Understanding the biological biocompatibility between human skin and pure botanical extracts.',
+    category: 'Botanical Skincare',
+    readTime: '6 min read',
+    publishDate: 'November 2025',
+    author: 'Dr. A. Rahat',
+    authorRole: 'Botanical Chemist',
+    coverImage: 'https://images.unsplash.com/photo-1546842931-886c185b4c8c?w=1200&q=80',
+    excerpt: 'Explore the cellular science of herbality in skincare. Discover why whole plant phytosterols, flavonoids, and natural antioxidants heal the skin barrier more effectively than harsh synthetic isolates.',
+    content: {
+      intro: 'For decades, conventional cosmetic industries attempted to isolate single active molecules in laboratory settings. However, modern dermatology is coming to a striking realization: the natural synergy present within whole herbs offers vastly superior skin affinity and lasting biological recovery.',
+      sections: [
+        {
+          heading: '1. Phytosterols & The Skin Lipid Barrier',
+          body: 'Human skin is enveloped in a delicate lipid bilayer comprised of ceramides, fatty acids, and cholesterol. Botanical oils and herbal extracts mimic this structure precisely. When you apply cold-pressed plant oils, your skin recognizes them instantly, facilitating deep cellular penetration without clogging pores.',
+          bullets: [
+            'Direct bio-compatibility with human stratum corneum',
+            'Reinforces cellular moisture retention naturally',
+            'Prevents trans-epidermal water loss (TEWL) without occlusive petroleum',
+          ],
+        },
+        {
+          heading: '2. The Synergy of Botanical Flavonoids',
+          body: 'In nature, plants synthesize antioxidants to shield themselves from intense sun, extreme droughts, and biological stress. When infused into skincare, these natural polyphenols neutralize free radicals, reduce oxidative stress, and stimulate collagen synthesis naturally.',
+        },
+        {
+          heading: '3. Harmonizing with Skin Microflora',
+          body: 'Synthetic antibacterial cleansers strip away the healthy skin microbiome, resulting in chronic irritation and breakouts. In contrast, herbs like neem and tea tree selectively target pathogenic bacteria while nurturing friendly protective flora.',
+        },
+      ],
+      herbalityPledge: 'Herbality is not simply about using plants—it is about respecting the biological intelligence of botanical life.',
+    },
+    keyTakeaways: [
+      'Herbal extracts are naturally bio-compatible with skin lipids',
+      'Whole-plant antioxidants protect against cellular aging and UV damage',
+      'Nurtures rather than destroys your skin’s protective microbiome',
+    ],
+  },
+  {
+    id: 'pure-herbal-oil',
+    slug: 'pure-herbal-oil',
+    tag: 'PureHerbalOil',
+    hashtag: '#PureHerbalOil',
+    count: 'Signature',
+    featured: true,
+    title: 'The Miracle Hair & Skin Elixir: How Cold-Infused Herbal Oils Restore Vitality',
+    subtitle: 'The sacred craft behind our multi-restorative botanical miracle hair and skin oil.',
+    category: 'Hair & Scalp Therapy',
+    readTime: '7 min read',
+    publishDate: 'November 2025',
+    author: 'MHAHRR Natural Research',
+    authorRole: 'Master Apothecary',
+    coverImage: '/product_img/oilImg2.png',
+    excerpt: 'A comprehensive guide to the restorative power of cold-infused herbal oils. Learn how traditional botanical steeping delivers essential nutrients straight to your hair roots and skin tissue.',
+    content: {
+      intro: 'Our flagship Miracle Hair & Skin Oil represents the pinnacle of MHAHRR Natural craftsmanship. Formulated with hand-selected roots, wild herbs, and slow cold-pressed botanical carrier oils, it delivers vital nourishment directly where your body needs it most.',
+      sections: [
+        {
+          heading: '1. The Art of Cold-Infusion',
+          body: 'Most commercial oils are boiled at extreme industrial temperatures, destroying thermolabile botanical vitamins. At MHAHRR Natural, our botanical roots and herbs are steeped through patient, low-temperature cold infusion over several weeks. This gentle extraction preserves active phytonutrients and enzymes in their living form.',
+          bullets: [
+            'Protects delicate essential fatty acids and antioxidants',
+            'Ensures maximum bioavailability to dermal and scalp follicles',
+            'Pure, unadulterated herbal aroma with zero synthetic fragrance',
+          ],
+        },
+        {
+          heading: '2. Awakening Dormant Hair Follicles',
+          body: 'Scalp health directly dictates hair thickness. By nourishing the dermal papilla with essential ricinoleic acid, vitamin E, and herbal phytosterols, our oil increases microcirculation, strengthens keratin bonds, and curbs premature shedding.',
+        },
+        {
+          heading: '3. Multi-Purpose Skin Regeneration',
+          body: 'Beyond the scalp, this signature formulation acts as a deep nighttime skin treatment, softening rough elbows, soothing post-sun exposure, and providing anti-aging resilience against dry climates.',
+        },
+      ],
+      herbalityPledge: 'Our miracle oil contains zero mineral oils, zero silicones, and zero synthetic dyes. Just pure botanical vitality in every single golden drop.',
+    },
+    keyTakeaways: [
+      'Cold-infusion preserves delicate plant vitamins and bio-enzymes',
+      'Strengthens roots and stimulates microcirculation naturally',
+      'Multi-purpose botanical formula safe for hair, scalp, and skin',
+    ],
+  },
+  {
+    id: 'natural-remedies',
+    slug: 'natural-remedies',
+    tag: 'NaturalRemedies',
+    hashtag: '#NaturalRemedies',
+    count: 'Popular',
+    title: 'Time-Honored Apothecary Remedies: Nature’s Restorative Solutions',
+    subtitle: 'How traditional botanical salves and extracts offer gentle, lasting relief.',
+    category: 'Traditional Remedies',
+    readTime: '5 min read',
+    publishDate: 'November 2025',
+    author: 'Hakeem S. Mansoor',
+    authorRole: 'Apothecary Advisor',
+    coverImage: '/product_img/WhatsApp Image 2026-11-08 at 9.19.00 PM (8).jpeg',
+    excerpt: 'Rediscover the lost art of the traditional herbal apothecary. From soothing muscle salves to calming skin elixirs, explore how ancestral remedies heal without harsh pharmaceuticals.',
+    content: {
+      intro: 'Long before modern factories produced synthetic creams, traditional apothecary healers gathered herbs from hills and valleys, blending therapeutic balms with beeswax and cold-pressed plant extracts. These remedies stood the test of centuries for one reason: they work harmoniously with human biology.',
+      sections: [
+        {
+          heading: '1. The Wisdom of Botanical Synergies',
+          body: 'In traditional healing, herbs are never used in isolation. Warming herbs are balanced with cooling leaves; astringent barks are paired with nourishing carrier oils. This holistic balance ensures effective therapeutic relief without unwanted side effects.',
+          bullets: [
+            'Harmonized heating and cooling botanical energies',
+            'Deep penetrative relief for sore joints and fatigue',
+            '100% natural wax and botanical base without paraffin',
+          ],
+        },
+        {
+          heading: '2. Restorative Healing Salves',
+          body: 'Our concentrated herbal balms combine anti-inflammatory botanicals with unrefined natural waxes. Designed to ease muscle tension, soothe winter dryness, and accelerate tissue recovery, they are essential for every mindful household.',
+        },
+      ],
+      herbalityPledge: 'We preserve authentic apothecary methods, maintaining purity and potency in every batch.',
+    },
+    keyTakeaways: [
+      'Balanced synergies between active botanical herbs',
+      'Provides deep relief without petroleum or synthetic camphor',
+      'Rooted in centuries of proven traditional healthcare',
+    ],
+  },
+  {
+    id: 'organic-wellness',
+    slug: 'organic-wellness',
+    tag: 'OrganicWellness',
+    hashtag: '#OrganicWellness',
+    count: 'Top Rated',
+    title: 'Holistic Living & Herbality: Cultivating Balance from Within',
+    subtitle: 'How organic botanical daily rituals restore vitality, calm the mind, and brighten skin.',
+    category: 'Holistic Wellness',
+    readTime: '5 min read',
+    publishDate: 'November 2025',
+    author: 'Zoya Khan',
+    authorRole: 'Wellness Practitioner',
+    coverImage: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=80',
+    excerpt: 'True radiance cannot be painted on—it radiates from within. Discover how organic herbal adaptogens and mindful self-care rituals bring peaceful harmony to mind and body.',
+    content: {
+      intro: 'Modern life exposes us to constant screens, pollution, and mental stress. When the nervous system is overwhelmed, the body redirects energy away from skin and hair. Embracing holistic herbality allows you to cultivate an oasis of calm that reflects directly in your outer vitality.',
+      sections: [
+        {
+          heading: '1. The Gut-Brain-Skin Axis',
+          body: 'Holistic healing recognizes that skin conditions are often outward reflections of internal imbalance. By incorporating organic adaptogenic herbs and calming botanical extracts into daily rituals, we restore equilibrium at the deepest level.',
+          bullets: [
+            'Reduces stress-induced cortisol spikes that trigger breakouts',
+            'Promotes restful sleep essential for nightly cellular repair',
+            'Cultivates grounded, peaceful daily mindfulness',
+          ],
+        },
+        {
+          heading: '2. The Evening Herbal Sanctuary Ritual',
+          body: 'Transform your bedtime into a sacred restorative ceremony. Massaging pure botanical oil into your temples and scalp for just 3 minutes calms the nervous system and invites deep, healing sleep.',
+        },
+      ],
+      herbalityPledge: 'Wellness is a harmonious state of being. Our organic formulations support your sacred journey toward holistic peace.',
+    },
+    keyTakeaways: [
+      'Stress directly impacts skin resilience and hair retention',
+      'Simple herbal rituals recalibrate the autonomic nervous system',
+      'Radiant health is the natural byproduct of internal balance',
+    ],
+  },
+  {
+    id: 'clean-beauty',
+    slug: 'clean-beauty',
+    tag: 'CleanBeauty',
+    hashtag: '#CleanBeauty',
+    count: 'Verified',
+    title: 'The Clean Beauty Standard: What Genuine Non-Toxic Care Demands',
+    subtitle: 'Demystifying greenwashing and establishing transparent botanical integrity.',
+    category: 'Clean Formulation',
+    readTime: '6 min read',
+    publishDate: 'November 2025',
+    author: 'MHAHRR Natural Team',
+    authorRole: 'Purity Advocates',
+    coverImage: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=1200&q=80',
+    excerpt: 'Learn how to read beauty labels like an apothecary expert. Uncover common synthetic fillers and understand why 100% clean, non-toxic herbality is the future of personal care.',
+    content: {
+      intro: 'Today, the word "natural" is frequently plastered on products that contain 95% petrochemicals and a single drop of plant extract. At MHAHRR Natural, Clean Beauty is not a buzzword—it is a strict, inviolable vow of transparency.',
+      sections: [
+        {
+          heading: '1. Exposing The Synthetic Smoke Screen',
+          body: 'Many popular products rely on synthetic silicones to give a temporary illusion of smoothness while suffocating the skin underneath. Real clean beauty feeds the skin with bio-active nutrition that heals tissue over time.',
+          bullets: [
+            'Zero synthetic silicones (dimethicone, cyclopentasiloxane)',
+            'No hidden phthalates or artificial fragrance blends',
+            'Clean extraction without harsh chemical solvents',
+          ],
+        },
+        {
+          heading: '2. The MHAHRR Clean Verification',
+          body: 'Every single ingredient in our workshop is ethically vetted. If an ingredient cannot be proven completely safe and naturally derived, it is never included in our formulas.',
+        },
+      ],
+      herbalityPledge: 'Honesty on the label, purity in the bottle. That is the MHAHRR Natural guarantee.',
+    },
+    keyTakeaways: [
+      'Beware of cosmetic greenwashing—always scrutinize the ingredient list',
+      'Silicones mask damage; cold-pressed botanicals truly repair it',
+      'Clean formulations protect against long-term toxic accumulation',
+    ],
+  },
+  {
+    id: 'chemical-free',
+    slug: 'chemical-free',
+    tag: 'ChemicalFree',
+    hashtag: '#ChemicalFree',
+    count: '100% Pure',
+    title: 'Saying No to Sulfates & Parabens: The Lasting Benefits of Chemical-Free Care',
+    subtitle: 'Why eliminating industrial preservatives allows your natural glow to thrive.',
+    category: 'Pure Formulation',
+    readTime: '5 min read',
+    publishDate: 'November 2025',
+    author: 'Dr. A. Rahat',
+    authorRole: 'Botanical Chemist',
+    coverImage: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=1200&q=80',
+    excerpt: 'Discover what happens to your skin barrier when you eliminate sulfates, parabens, and endocrine disruptors. Experience the true detox of 100% chemical-free herbal formulations.',
+    content: {
+      intro: 'Sulfates (SLS/SLES) were originally developed as industrial engine degreasers before cosmetic brands realized they produce cheap, voluminous foam. Unfortunately, this harsh stripping action damages the skin’s acid mantle, triggering chronic dryness, eczema, and premature aging.',
+      sections: [
+        {
+          heading: '1. The Acid Mantle Recovery Process',
+          body: 'When you stop using harsh chemical foaming agents, your skin may experience a brief rebalancing phase before its natural lipid protection returns. Within two weeks, moisture retention improves dramatically, redness fades, and sensitivity subsides.',
+          bullets: [
+            'Restores natural sebum production without rebound oiliness',
+            'Eliminates contact dermatitis and mysterious scalp itching',
+            'Protects against cumulative endocrine disruptor exposure',
+          ],
+        },
+        {
+          heading: '2. Gentle Herbal Cleansing',
+          body: 'Instead of aggressive detergents, nature provides plants like Shikakai, Reetha, and neem that dissolve surface grime while keeping moisture intact.',
+        },
+      ],
+      herbalityPledge: 'We never compromise with cheap chemical shortcuts. Your health is our highest honor.',
+    },
+    keyTakeaways: [
+      'Sulfates strip away the protective acid mantle of skin and hair',
+      'Chemical-free botanicals respect your body’s self-regulating mechanisms',
+      'Experience true resilience and freedom from chronic sensitivities',
+    ],
+  },
+  {
+    id: 'holistic-healing',
+    slug: 'holistic-healing',
+    tag: 'HolisticHealing',
+    hashtag: '#HolisticHealing',
+    count: 'Apothecary',
+    title: 'The Living Apothecary: Ancient Herb Blending Secrets for Full-Body Healing',
+    subtitle: 'How traditional plant synergies create remedies far greater than the sum of their parts.',
+    category: 'Apothecary Wisdom',
+    readTime: '6 min read',
+    publishDate: 'November 2025',
+    author: 'Hakeem S. Mansoor',
+    authorRole: 'Apothecary Advisor',
+    coverImage: '/product_img/WhatsApp Image 2026-11-08 at 9.19.00 PM (10).jpeg',
+    excerpt: 'Explore the traditional science of botanical pairing. Discover how combining carrier oils, botanical waxes, and medicinal roots creates powerful remedies for stress and inflammation.',
+    content: {
+      intro: 'In an authentic apothecary, herbalists do not haphazardly mix ingredients. They understand the energetic properties of plants—astringents that tone, emollients that soothe, and adaptogens that restore. When combined deliberately, these herbs trigger deep regenerative responses.',
+      sections: [
+        {
+          heading: '1. Synergistic Herbal Pairs',
+          body: 'Take Turmeric and Neem: while turmeric reduces inflammatory markers and brightens tone, neem clears bacterial congestion. Together, they create an impenetrable botanical shield for clear, healthy skin.',
+          bullets: [
+            'Carrier oils ensure active herbs penetrate deeply into dermal layers',
+            'Natural waxes lock in moisture and protect active botanical compounds',
+            'Time-simmered extracts release maximum bio-available nutrients',
+          ],
+        },
+        {
+          heading: '2. Creating a Healing Sanctuary at Home',
+          body: 'Learn how to incorporate simple apothecary techniques into your daily life—from warm herbal compresses to soothing foot massages before sleep.',
+        },
+      ],
+      herbalityPledge: 'We carry forward centuries of apothecary heritage so you can experience true healing every day.',
+    },
+    keyTakeaways: [
+      'Apothecary herbs work through deliberate biological synergies',
+      'Carrier oils act as nutrient transport vehicles for deep skin penetration',
+      'Traditional formulas deliver comprehensive, full-body restorative comfort',
+    ],
+  },
+  {
+    id: 'karachi-organics',
+    slug: 'karachi-organics',
+    tag: 'KarachiOrganics',
+    hashtag: '#KarachiOrganics',
+    count: 'Local Craft',
+    title: 'Rooted in Karachi: Ethical Wildcrafting & Local Herbal Heritage of Pakistan',
+    subtitle: 'Celebrating the incredible indigenous flora and community growers of our homeland.',
+    category: 'Heritage & Community',
+    readTime: '6 min read',
+    publishDate: 'November 2025',
+    author: 'MHAHRR Natural Founders',
+    authorRole: 'Community Builders',
+    coverImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=1200&q=80',
+    excerpt: 'Take a journey through the botanical landscapes of Sindh and Pakistan. Learn how MHAHRR Natural partners with local harvesting families to cultivate sustainable, indigenous herbs.',
+    content: {
+      intro: 'Pakistan is blessed with diverse botanical microclimates—from the coastal plains of Sindh to the fertile river valleys of Punjab. For centuries, our land has produced some of the world’s most potent therapeutic plants, from desi gulab (rose) to black seed (kalonji) and wild neem.',
+      sections: [
+        {
+          heading: '1. Empowering Local Farming Families',
+          body: 'We work directly with artisanal growers who practice sustainable wildcrafting. By ensuring fair compensation and ethical harvesting, we protect indigenous plant species from over-harvesting while supporting sustainable livelihoods.',
+          bullets: [
+            'Direct partnership with local agricultural harvesters',
+            'Sustainable wildcrafting preserving native root systems',
+            'Handcrafted small-batch production based in Karachi',
+          ],
+        },
+        {
+          heading: '2. The Pride of Pakistani Botanicals',
+          body: 'We prove that world-class, luxury organic skincare and remedies can be formulated right here at home, using nature’s finest gifts from our own soil.',
+        },
+      ],
+      herbalityPledge: 'Proudly crafted in Karachi, honoring our land, our community, and our sacred traditions.',
+    },
+    keyTakeaways: [
+      'Pakistan’s indigenous plants are renowned worldwide for medicinal potency',
+      'MHAHRR Natural supports fair-trade local harvesting families',
+      'Handcrafted locally with uncompromising international quality standards',
+    ],
+  },
+  {
+    id: 'glow-naturally',
+    slug: 'glow-naturally',
+    tag: 'GlowNaturally',
+    hashtag: '#GlowNaturally',
+    count: 'Beauty',
+    title: 'The Golden Radiance Secret: Turmeric, Neem & Rose for Naturally Luminous Skin',
+    subtitle: 'How traditional bridal herbs fade hyperpigmentation and reveal lit-from-within glow.',
+    category: 'Natural Radiance',
+    readTime: '5 min read',
+    publishDate: 'November 2025',
+    author: 'Zoya Khan',
+    authorRole: 'Skincare Specialist',
+    coverImage: 'https://images.unsplash.com/photo-1512290900672-1f41bfb7f8f0?w=1200&q=80',
+    excerpt: 'Discover why generations of women in South Asia trusted turmeric, rose water, and neem for glowing skin. Learn the clinical science behind these traditional botanical beauty secrets.',
+    content: {
+      intro: 'Long before brightening serums arrived in plastic tubes, the secret to radiant, spot-free skin was found in the vibrant yellow of wild kasturi manjal (turmeric), the refreshing mist of distilled rose petals, and the clarifying power of fresh neem.',
+      sections: [
+        {
+          heading: '1. Curcumin: Nature’s Golden Glow Illuminator',
+          body: 'Curcumin, the active polyphenol in turmeric, inhibits tyrosinase activity to gently reduce melanin overproduction, fading dark spots and sun damage without chemical bleaching.',
+          bullets: [
+            'Fades stubborn blemishes and acne scars naturally',
+            'Calms redness and evens out discolored skin tone',
+            'Rose water locks in hydration and refines enlarged pores',
+          ],
+        },
+        {
+          heading: '2. The 3-Step Weekly Glow Ritual',
+          body: 'Cleanse with neem, tone with pure distilled rose water, and apply our cold-infused botanical face serum before sleep for unmatched morning glow.',
+        },
+      ],
+      herbalityPledge: 'True glow is health radiating outward. Pure herbs reveal your authentic beauty without harsh bleaching.',
+    },
+    keyTakeaways: [
+      'Curcumin in turmeric naturally reduces hyperpigmentation',
+      'Distilled rose water balances skin pH and tightens pores',
+      'Gentle, natural botanical brightening with zero chemical bleaching',
+    ],
+  },
+  {
+    id: 'cold-pressed-hair-oil',
+    slug: 'cold-pressed-hair-oil',
+    tag: 'ColdPressedHairOil',
+    hashtag: '#ColdPressedHairOil',
+    count: 'Must Have',
+    title: 'Cold-Pressed Oil Mastery: Why Heat Processing Destroys Hair Nutrients',
+    subtitle: 'The molecular difference between true cold-pressed botanicals and commercial refined oils.',
+    category: 'Haircare Science',
+    readTime: '6 min read',
+    publishDate: 'November 2025',
+    author: 'Dr. A. Rahat',
+    authorRole: 'Botanical Chemist',
+    coverImage: '/product_img/oilImg2.png',
+    excerpt: 'Commercial hair oils are often stripped of vitamins during industrial refining. Learn why slow mechanical cold-pressing preserves vital fatty acids for accelerated hair density and shine.',
+    content: {
+      intro: 'When vegetable and seed oils are processed commercially, they are subjected to temperatures exceeding 200°C and chemical bleaches. While this creates a cheap, odorless product, it oxidizes the fragile omega-3, 6, and 9 fatty acids that hair roots crave.',
+      sections: [
+        {
+          heading: '1. The Molecular Integrity of Cold Pressing',
+          body: 'Mechanical cold-pressing exerts slow, heavy hydraulic pressure at room temperature. The oil that emerges carries the vibrant natural color, subtle botanical scent, and complete vitamin E profile of the seed.',
+          bullets: [
+            'Retains 100% of natural phytosterols and tocopherols',
+            'Penetrates the hair cuticle to prevent protein loss during washing',
+            'Forms an elastic protective sheath around fragile hair shafts',
+          ],
+        },
+        {
+          heading: '2. Combating Hair Thinning at the Root',
+          body: 'Applying cold-pressed herbal oil to the scalp nourishes the dermal papilla, reducing tension and delivering zinc, magnesium, and fatty acids directly to growing follicles.',
+        },
+      ],
+      herbalityPledge: 'We never heat, bleach, or dilute our oils. Pure cold-pressed integrity from seed to bottle.',
+    },
+    keyTakeaways: [
+      'Industrial heat destroys delicate vitamins in commercial oils',
+      'Cold-pressing preserves active fatty acids for deeper shaft penetration',
+      'Stimulates scalp microcirculation and prevents hair breakage',
+    ],
+  },
+  {
+    id: 'ayurvedic-care',
+    slug: 'ayurvedic-care',
+    tag: 'AyurvedicCare',
+    hashtag: '#AyurvedicCare',
+    count: 'Heritage',
+    title: 'The Ancient Botanical Trinity: Amla, Shikakai, and Bhringraj for Hair Longevity',
+    subtitle: 'How 5,000-year-old botanical knowledge solves modern hair loss and premature graying.',
+    category: 'Ayurvedic Heritage',
+    readTime: '6 min read',
+    publishDate: 'November 2025',
+    author: 'Hakeem S. Mansoor',
+    authorRole: 'Apothecary Advisor',
+    coverImage: '/product_img/WhatsApp Image 2026-11-08 at 9.19.00 PM (11).jpeg',
+    excerpt: 'Uncover the ancient secrets of Amla (Indian Gooseberry), Shikakai, and Bhringraj (The King of Hair). Discover how classical formulations strengthen follicles and preserve youthful color.',
+    content: {
+      intro: 'Classical botanical texts revered Bhringraj as "Keshraj"—the ruler of hair. When blended with vitamin C-rich Amla and gently cleansing Shikakai, it forms the most powerful natural hair defense known to science.',
+      sections: [
+        {
+          heading: '1. The Superpowers of Amla (Emblica officinalis)',
+          body: 'Amla contains twenty times the vitamin C of an orange, alongside potent tannins that prevent oxidation of hair pigments, combating premature graying and thinning caused by modern pollution.',
+          bullets: [
+            'Bhringraj stimulates dormant follicles into the active anagen phase',
+            'Amla provides intensive antioxidant defense against premature graying',
+            'Shikakai detangles naturally without stripping essential scalp moisture',
+          ],
+        },
+        {
+          heading: '2. The Champi: Sacred Scalp Massage',
+          body: 'In traditional homes, applying warm herbal oil through a gentle circular champi (massage) was a weekly ritual that nurtured connection, dissolved stress, and ensured thick, lustrous hair across generations.',
+        },
+      ],
+      herbalityPledge: 'We honor ancient recipes with meticulous craftsmanship, keeping heritage remedies alive today.',
+    },
+    keyTakeaways: [
+      'Bhringraj prolongs the active anagen hair growth cycle',
+      'High tannin content in Amla protects against premature graying',
+      'Traditional weekly scalp oiling calms mental tension and strengthens roots',
+    ],
+  },
+  {
+    id: 'botanical-care',
+    slug: 'botanical-care',
+    tag: 'BotanicalCare',
+    hashtag: '#BotanicalCare',
+    count: 'Plant Based',
+    title: 'Phytotherapy & Botanical Care: How Plants Communicate with Human Skin',
+    subtitle: 'The evolutionary harmony between botanical lipids and human cell membranes.',
+    category: 'Plant Science',
+    readTime: '5 min read',
+    publishDate: 'November 2025',
+    author: 'Dr. A. Rahat',
+    authorRole: 'Botanical Chemist',
+    coverImage: 'https://images.unsplash.com/photo-1508746829417-e6f548d8d6ed?w=1200&q=80',
+    excerpt: 'Human biology and plant biology evolved together over millions of years. Learn how bio-compatible plant lipids repair skin barriers faster and more gently than lab-made chemicals.',
+    content: {
+      intro: 'Every plant cell wall is built from complex lipid membranes designed to protect living cells from harsh sunlight, arid winds, and environmental stress. When you nourish your skin with authentic botanical care, these plant compounds speak the same biological language as your own cells.',
+      sections: [
+        {
+          heading: '1. Cellular Biocompatibility',
+          body: 'Synthetic petrochemicals (like petroleum jelly and mineral oil) merely sit on top of the skin like plastic wrap. Botanical plant lipids, however, integrate into the intercellular matrix, stimulating your skin to produce its own ceramides and barrier lipids.',
+          bullets: [
+            'Promotes active cellular barrier regeneration',
+            'Allows skin to breathe naturally without suffocating pores',
+            'Contains bio-available trace minerals that soothe inflammation',
+          ],
+        },
+        {
+          heading: '2. Building Your Plant-Powered Daily Ritual',
+          body: 'Simplify your routine: clean with botanical extracts, balance with floral waters, and protect with cold-pressed herbal oils. Let nature do the heavy lifting.',
+        },
+      ],
+      herbalityPledge: 'Plant science is not our invention—it is nature’s masterpiece that we faithfully bottle.',
+    },
+    keyTakeaways: [
+      'Plant lipids integrate directly into skin cells rather than suffocating them',
+      'Encourages natural ceramide and collagen production',
+      'Gentle, sustainable healing suitable for sensitive skin',
+    ],
+  },
+  {
+    id: 'cruelty-free-skincare',
+    slug: 'cruelty-free-skincare',
+    tag: 'CrueltyFreeSkincare',
+    hashtag: '#CrueltyFreeSkincare',
+    count: 'Ethical',
+    title: 'Compassion & Humanity: The Ethical Imperative of Cruelty-Free Botanical Beauty',
+    subtitle: 'Why authentic healing can never be built upon the suffering of living creatures.',
+    category: 'Ethical Humanity',
+    readTime: '5 min read',
+    publishDate: 'November 2025',
+    author: 'MHAHRR Natural Founders',
+    authorRole: 'Community Builders',
+    coverImage: 'https://images.unsplash.com/photo-1617897903246-719242758050?w=1200&q=80',
+    excerpt: 'Humanity is the crowning pillar of MHAHRR Natural. Discover our zero animal testing commitment, ethical farmer partnerships, and sustainable earth-first production.',
+    content: {
+      intro: 'At MHAHRR Natural, our third founding pillar is Humanity. We believe that no product can truly bring healing or beauty if its creation involved cruelty, environmental destruction, or the suffering of innocent animals.',
+      sections: [
+        {
+          heading: '1. 100% Cruelty-Free Craft',
+          body: 'We test our formulations exclusively on willing human volunteers and utilize centuries-proven botanical ingredients that have established safety profiles spanning generations. No animal testing has ever occurred in our workshop, and none ever will.',
+          bullets: [
+            'Strict zero animal testing policy on all formulas and raw materials',
+            'Supports fair wages and safe working conditions for harvesting families',
+            'Eco-conscious recyclable packaging minimizing landfill waste',
+          ],
+        },
+        {
+          heading: '2. The Circle of Compassion',
+          body: 'When you choose ethical, cruelty-free herbal care, your daily self-care becomes an act of kindness toward all living creatures and our shared planet.',
+        },
+      ],
+      herbalityPledge: 'Care crafted with compassion. For your skin, for living creatures, and for our shared Earth.',
+    },
+    keyTakeaways: [
+      '100% cruelty-free formulation with zero animal testing',
+      'Deeply ethical partnerships supporting human harvesters and farmers',
+      'Healing formulations that honor all life on Earth',
+    ],
+  },
+];

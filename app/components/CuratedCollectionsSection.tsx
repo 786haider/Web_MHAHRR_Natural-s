@@ -2,7 +2,22 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Sparkles, Leaf, Eye, X, MessageCircle, Heart, ArrowRight, ShieldCheck } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import {
+  Sparkles,
+  Leaf,
+  Eye,
+  X,
+  MessageCircle,
+  Heart,
+  ArrowRight,
+  ShieldCheck,
+  ShoppingBag,
+  HelpCircle,
+  ChevronRight,
+  ChevronDown,
+} from 'lucide-react';
 
 export interface ProductItem {
   id: string;
@@ -245,14 +260,27 @@ export const COLLECTIONS_DATA: CollectionSection[] = [
 ];
 
 export default function CuratedCollectionsSection() {
-  const [activeTab, setActiveTab] = useState<'all' | 'skincare' | 'wellness' | 'herbal'>('all');
+  const router = useRouter();
+  const [isQuestionHovered, setIsQuestionHovered] = useState(false);
+  const [isListToggled, setIsListToggled] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ProductItem | null>(null);
-
-  const filterCollections = activeTab === 'all'
-    ? COLLECTIONS_DATA
-    : COLLECTIONS_DATA.filter((col) => col.id === activeTab);
+  const [activeCategoryFilter, setActiveCategoryFilter] = useState<'all' | 'skincare' | 'wellness' | 'herbal'>('all');
 
   const totalProducts = COLLECTIONS_DATA.reduce((acc, col) => acc + col.products.length, 0);
+
+  // Flattened products list
+  const allProductsList: ProductItem[] = COLLECTIONS_DATA.flatMap((col) => col.products);
+
+  const displayedListProducts = activeCategoryFilter === 'all'
+    ? allProductsList
+    : COLLECTIONS_DATA.find((c) => c.id === activeCategoryFilter)?.products || [];
+
+  const isListVisible = isQuestionHovered || isListToggled;
+
+  const handleQuestionClick = (e: React.MouseEvent) => {
+    // If user clicked the link or question container, navigate to Our Product page
+    router.push('/our_product');
+  };
 
   const getWhatsAppLink = (productName: string, category: string) => {
     const message = encodeURIComponent(
@@ -262,15 +290,15 @@ export default function CuratedCollectionsSection() {
   };
 
   return (
-    <section id="curated-collections" className="py-24 bg-gradient-to-b from-white via-emerald-50/40 to-white relative overflow-hidden">
+    <section id="curated-collections" className="py-24 bg-gradient-to-b from-white via-emerald-50/30 to-white relative overflow-hidden">
       {/* Decorative background blurs */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-100/50 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
-      <div className="absolute bottom-1/3 left-0 w-80 h-80 bg-teal-100/40 rounded-full blur-3xl pointer-events-none -ml-20"></div>
+      <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-100/40 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
+      <div className="absolute bottom-1/3 left-0 w-80 h-80 bg-teal-100/30 rounded-full blur-3xl pointer-events-none -ml-20"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100/80 text-emerald-800 text-xs sm:text-sm font-semibold tracking-wide uppercase mb-4 shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-100/90 text-emerald-800 text-xs sm:text-sm font-semibold tracking-wide uppercase mb-4 shadow-sm border border-emerald-200/60">
             <Leaf className="w-4 h-4 text-emerald-600" />
             <span>Pure Botanical Formulations</span>
           </div>
@@ -280,256 +308,314 @@ export default function CuratedCollectionsSection() {
           </h2>
 
           <p className="text-lg sm:text-xl text-gray-600 leading-relaxed">
-            Discover our handcrafted range of natural wellness and skincare solutions. Every formulation is made with pure herbs, natural cold-pressed oils, and timeless botanical wisdom.
+            Discover our carefully crafted range of natural wellness and skincare solutions. Every formulation is made with pure herbs, cold-pressed oils, and timeless botanical wisdom.
           </p>
         </div>
 
-        {/* 3 Main Collection Banners (Thumbnail is oilImg2.png for all 3) */}
+        {/* 3 Main Collection Overview Cards (Thumbnail is oilImg2.png for all 3) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {COLLECTIONS_DATA.map((col) => {
-            const isCurrentActive = activeTab === col.id;
-            return (
-              <div
-                key={col.id}
-                onClick={() => setActiveTab(isCurrentActive ? 'all' : col.id)}
-                className={`group relative bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer border-2 ${
-                  isCurrentActive ? 'border-emerald-600 ring-4 ring-emerald-500/20 -translate-y-2' : 'border-gray-100 hover:-translate-y-2'
-                }`}
-              >
-                {/* Thumbnail Image: oilImg2.png */}
-                <div className="relative h-72 sm:h-80 w-full overflow-hidden bg-emerald-950">
-                  <Image
-                    src={col.thumbnail}
-                    alt={`${col.title} Collection Thumbnail`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-950/85 via-gray-900/40 to-transparent"></div>
+          {COLLECTIONS_DATA.map((col) => (
+            <Link
+              key={col.id}
+              href="/our_product"
+              className="group relative bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer border border-gray-100 hover:-translate-y-2 flex flex-col"
+            >
+              {/* Thumbnail Image: oilImg2.png */}
+              <div className="relative h-72 sm:h-80 w-full overflow-hidden bg-emerald-950">
+                <Image
+                  src={col.thumbnail}
+                  alt={`${col.title} Collection Thumbnail`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover group-hover:scale-108 transition-transform duration-700"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-950/85 via-gray-900/40 to-transparent"></div>
 
-                  {/* Badges on Thumbnail */}
-                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1.5 bg-white/90 backdrop-blur-md text-emerald-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
-                      <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-                      Thumbnail: oilimg2.png
-                    </span>
-                    <span className="bg-emerald-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">
-                      {col.products.length} Products
-                    </span>
-                  </div>
-
-                  {/* Title & Tagline overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <p className="text-xs uppercase tracking-wider text-emerald-300 font-semibold mb-1">
-                      {col.tagline}
-                    </p>
-                    <h3 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">
-                      {col.title}
-                    </h3>
-                    <p className="text-sm text-gray-200 line-clamp-2 leading-relaxed">
-                      {col.description}
-                    </p>
-                  </div>
+                {/* Badges on Thumbnail */}
+                <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 bg-white/95 backdrop-blur-md text-emerald-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                    Thumbnail: oilimg2.png
+                  </span>
+                  <span className="bg-emerald-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">
+                    {col.products.length} Products
+                  </span>
                 </div>
 
-                {/* Card Footer Action */}
-                <div className="p-5 bg-white flex items-center justify-between">
-                  <span className="text-sm font-semibold text-gray-700 group-hover:text-emerald-700 transition-colors">
-                    {isCurrentActive ? 'Showing this collection' : 'Explore this collection'}
-                  </span>
-                  <div className="w-9 h-9 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-sm">
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
+                {/* Title & Tagline overlay */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <p className="text-xs uppercase tracking-wider text-emerald-300 font-semibold mb-1">
+                    {col.tagline}
+                  </p>
+                  <h3 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">
+                    {col.title}
+                  </h3>
+                  <p className="text-sm text-gray-200 line-clamp-2 leading-relaxed">
+                    {col.description}
+                  </p>
                 </div>
               </div>
-            );
-          })}
-        </div>
 
-        {/* Filter Navigation Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-16">
-          <button
-            onClick={() => setActiveTab('all')}
-            className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 shadow-sm ${
-              activeTab === 'all'
-                ? 'bg-emerald-700 text-white shadow-emerald-700/25 shadow-md scale-105'
-                : 'bg-white text-gray-700 hover:bg-emerald-50 border border-gray-200 hover:border-emerald-300'
-            }`}
-          >
-            All Collections ({totalProducts})
-          </button>
-
-          {COLLECTIONS_DATA.map((col) => (
-            <button
-              key={col.id}
-              onClick={() => setActiveTab(col.id)}
-              className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 shadow-sm ${
-                activeTab === col.id
-                  ? 'bg-emerald-700 text-white shadow-emerald-700/25 shadow-md scale-105'
-                  : 'bg-white text-gray-700 hover:bg-emerald-50 border border-gray-200 hover:border-emerald-300'
-              }`}
-            >
-              {col.title} ({col.products.length})
-            </button>
+              {/* Card Footer Action */}
+              <div className="p-5 bg-white flex items-center justify-between">
+                <span className="text-sm font-semibold text-gray-700 group-hover:text-emerald-700 transition-colors">
+                  Explore {col.title}
+                </span>
+                <div className="w-9 h-9 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-sm">
+                  <ArrowRight className="w-4 h-4" />
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
 
-        {/* Collection Sections & Products */}
-        <div className="space-y-20">
-          {filterCollections.map((collection) => (
-            <div key={collection.id} className="scroll-mt-24">
-              {/* Category Sub-header */}
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-gray-200 mb-8">
+        {/* ─── ANIMATED QUESTION & HOVER LIST CONTAINER ──────────────────────── */}
+        <div
+          className="relative max-w-5xl mx-auto"
+          onMouseEnter={() => setIsQuestionHovered(true)}
+          onMouseLeave={() => setIsQuestionHovered(false)}
+        >
+          {/* Animated Question Prompt Banner (Clicking navigates to /our_product) */}
+          <div
+            onClick={handleQuestionClick}
+            className={`group relative rounded-3xl p-8 sm:p-10 cursor-pointer overflow-hidden transition-all duration-500 shadow-xl hover:shadow-2xl border-2 ${
+              isListVisible
+                ? 'bg-gradient-to-r from-emerald-900 via-teal-900 to-emerald-950 border-emerald-400 ring-4 ring-emerald-500/20'
+                : 'bg-gradient-to-r from-emerald-950 via-teal-950 to-gray-950 border-emerald-600/40 hover:border-emerald-400'
+            }`}
+          >
+            {/* Animated Ambient Glow */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-teal-500/20 rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform duration-700" />
+
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+              <div className="space-y-3 max-w-2xl">
+                {/* Floating Question Badge */}
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-400/20 text-emerald-300 text-xs sm:text-sm font-bold tracking-wide border border-emerald-400/30 backdrop-blur-md">
+                  <HelpCircle className="w-4 h-4 text-emerald-400 animate-pulse" />
+                  <span>Curious to See Our Products?</span>
+                </div>
+
+                {/* Animated Main Question */}
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-snug">
+                  Would you like to explore our handcrafted herbal remedies?
+                </h3>
+
+                {/* Instruction Subtitle */}
+                <p className="text-sm sm:text-base text-emerald-100/90 leading-relaxed">
+                  <span className="font-semibold text-emerald-300">Move your cursor over this box</span> to preview our formulations in a quick list, or <span className="underline decoration-emerald-400 underline-offset-4 font-semibold text-white">click anywhere</span> to visit our full Product Store!
+                </p>
+              </div>
+
+              {/* Action Button & Indicator */}
+              <div className="flex flex-col sm:flex-row md:flex-col items-center gap-3 flex-shrink-0">
+                <button
+                  type="button"
+                  className="px-6 py-3.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-extrabold text-sm sm:text-base shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 group-hover:scale-105"
+                >
+                  <ShoppingBag className="w-5 h-5" />
+                  <span>Go to Our Products</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+
+                {/* Mobile Tap Toggle Button */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsListToggled((prev) => !prev);
+                  }}
+                  className="md:hidden text-xs text-emerald-200 underline font-semibold py-1 px-3"
+                >
+                  {isListToggled ? '▲ Hide Quick List' : '▼ Tap to Preview List'}
+                </button>
+
+                <span className="text-[11px] text-emerald-200/80 font-mono tracking-wider hidden md:block">
+                  {isListVisible ? '🟢 Previewing List Below' : 'Hover to Preview List ⚡'}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* ─── HOVER REVEALED LIST FORM ────────────────────────────────────── */}
+          <div
+            className={`transition-all duration-500 ease-in-out overflow-hidden ${
+              isListVisible
+                ? 'max-h-[900px] opacity-100 translate-y-0 mt-6'
+                : 'max-h-0 opacity-0 -translate-y-4 pointer-events-none'
+            }`}
+          >
+            <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-emerald-100 flex flex-col">
+              {/* List Header & Category Filter Tabs */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-100 mb-6">
                 <div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="relative w-8 h-8 rounded-full overflow-hidden border border-emerald-500 shadow-sm">
-                      <Image
-                        src={collection.thumbnail}
-                        alt="Section Thumbnail"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">
-                      Section Category
-                    </span>
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                    <h4 className="text-xl sm:text-2xl font-bold text-gray-900">
+                      Quick Product List Preview
+                    </h4>
                   </div>
-                  <h3 className="text-3xl sm:text-4xl font-bold text-gray-900">
-                    {collection.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm sm:text-base mt-1 max-w-2xl">
-                    {collection.description}
+                  <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
+                    Showing {displayedListProducts.length} formulations divided across our 3 collections
                   </p>
                 </div>
 
-                <div className="text-sm font-semibold text-emerald-800 bg-emerald-50 px-4 py-2 rounded-xl self-start sm:self-auto border border-emerald-100">
-                  {collection.products.length} Botanical Formulations
+                {/* Category Pills */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setActiveCategoryFilter('all')}
+                    className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                      activeCategoryFilter === 'all'
+                        ? 'bg-emerald-700 text-white shadow-sm'
+                        : 'bg-gray-100 text-gray-700 hover:bg-emerald-50'
+                    }`}
+                  >
+                    All ({allProductsList.length})
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveCategoryFilter('skincare')}
+                    className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                      activeCategoryFilter === 'skincare'
+                        ? 'bg-emerald-700 text-white shadow-sm'
+                        : 'bg-gray-100 text-gray-700 hover:bg-emerald-50'
+                    }`}
+                  >
+                    Skincare (6)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveCategoryFilter('wellness')}
+                    className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                      activeCategoryFilter === 'wellness'
+                        ? 'bg-emerald-700 text-white shadow-sm'
+                        : 'bg-gray-100 text-gray-700 hover:bg-emerald-50'
+                    }`}
+                  >
+                    Wellness (6)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveCategoryFilter('herbal')}
+                    className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                      activeCategoryFilter === 'herbal'
+                        ? 'bg-emerald-700 text-white shadow-sm'
+                        : 'bg-gray-100 text-gray-700 hover:bg-emerald-50'
+                    }`}
+                  >
+                    Herbal Remedies (6)
+                  </button>
                 </div>
               </div>
 
-              {/* Product Cards Grid (Includes oilImg2.png + WhatsApp sample images) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {collection.products.map((product) => (
+              {/* Product Items in List Form (Scrollable container) */}
+              <div className="max-h-[460px] overflow-y-auto pr-2 divide-y divide-gray-100 space-y-1">
+                {displayedListProducts.map((product) => (
                   <div
-                    key={`${collection.id}-${product.id}`}
-                    className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 flex flex-col hover:-translate-y-1.5"
+                    key={product.id}
+                    onClick={() => setSelectedProduct(product)}
+                    className="group/item flex items-center justify-between gap-4 p-3.5 rounded-2xl hover:bg-emerald-50/70 transition-all duration-300 cursor-pointer"
                   >
-                    {/* Product Image Frame */}
-                    <div className="relative aspect-[4/3] w-full bg-emerald-50/50 overflow-hidden cursor-pointer"
-                      onClick={() => setSelectedProduct(product)}
-                    >
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
-                        loading="lazy"
-                      />
-
-                      {/* Tag Badge */}
-                      <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
-                        {product.isSignature ? (
-                          <span className="inline-flex items-center gap-1 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                            <Sparkles className="w-3 h-3" />
-                            {product.tag}
-                          </span>
-                        ) : (
-                          <span className="bg-emerald-600/95 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-sm">
-                            {product.tag}
-                          </span>
-                        )}
+                    {/* Left: Product Thumbnail & Title in List Form */}
+                    <div className="flex items-center gap-4 min-w-0">
+                      <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-xl overflow-hidden bg-emerald-50/80 border border-emerald-100 flex-shrink-0 group-hover/item:scale-105 transition-transform duration-300">
+                        <Image
+                          src={product.image}
+                          alt={product.name}
+                          fill
+                          sizes="64px"
+                          className="object-contain p-1"
+                        />
                       </div>
 
-                      {/* Quick View Overlay Button */}
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <span className="text-xs font-bold text-emerald-800 bg-emerald-100/70 px-2.5 py-0.5 rounded-md">
+                            {product.category}
+                          </span>
+                          {product.isSignature ? (
+                            <span className="text-[11px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-md flex items-center gap-1">
+                              <Sparkles className="w-3 h-3 text-amber-600" />
+                              Signature Blend
+                            </span>
+                          ) : (
+                            <span className="text-[11px] font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-md">
+                              {product.tag}
+                            </span>
+                          )}
+                        </div>
+
+                        <h5 className="text-sm sm:text-base font-bold text-gray-900 group-hover/item:text-emerald-700 transition-colors truncate">
+                          {product.name}
+                        </h5>
+
+                        <p className="text-xs text-gray-500 truncate hidden sm:block">
+                          {product.subtitle}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Right: Quick Action Buttons */}
+                    <div className="flex items-center gap-2 flex-shrink-0">
                       <button
+                        type="button"
                         onClick={(e) => {
                           e.stopPropagation();
                           setSelectedProduct(product);
                         }}
-                        className="absolute bottom-3 right-3 bg-white/90 backdrop-blur-md hover:bg-white text-gray-800 p-2.5 rounded-full shadow-md opacity-90 group-hover:opacity-100 transition-all hover:scale-110"
+                        className="p-2 rounded-xl text-gray-500 hover:text-emerald-700 hover:bg-white transition-colors"
                         title="Quick View"
-                        aria-label="Quick View"
                       >
-                        <Eye className="w-4 h-4 text-emerald-700" />
+                        <Eye className="w-4 h-4" />
                       </button>
-                    </div>
 
-                    {/* Card Content */}
-                    <div className="p-6 flex-1 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center justify-between text-xs text-gray-500 mb-2 font-medium">
-                          <span className="text-emerald-700 font-semibold">{product.category}</span>
-                          <span className="flex items-center gap-1 text-emerald-600">
-                            <ShieldCheck className="w-3.5 h-3.5" />
-                            Natural Sample
-                          </span>
-                        </div>
-
-                        <h4 className="text-xl font-bold text-gray-900 group-hover:text-emerald-700 transition-colors mb-1.5">
-                          {product.name}
-                        </h4>
-
-                        <p className="text-xs text-gray-500 mb-3 italic">
-                          {product.subtitle}
-                        </p>
-
-                        <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-2">
-                          {product.description}
-                        </p>
-
-                        {/* Key Benefits */}
-                        <div className="flex flex-wrap gap-1.5 mb-6">
-                          {product.benefits.map((b, idx) => (
-                            <span
-                              key={idx}
-                              className="text-[11px] bg-emerald-50 text-emerald-800 font-medium px-2.5 py-1 rounded-md"
-                            >
-                              ✓ {b}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Card Action Buttons */}
-                      <div className="pt-4 border-t border-gray-100 flex items-center gap-2">
-                        <button
-                          onClick={() => setSelectedProduct(product)}
-                          className="flex-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-semibold py-2.5 px-3 rounded-xl text-xs sm:text-sm transition-colors flex items-center justify-center gap-1.5"
-                        >
-                          <Eye className="w-4 h-4" />
-                          View Details
-                        </button>
-
-                        <a
-                          href={getWhatsAppLink(product.name, product.category)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold py-2.5 px-3 rounded-xl text-xs sm:text-sm transition-all shadow-sm hover:shadow flex items-center justify-center gap-1.5"
-                          title="Inquire on WhatsApp"
-                        >
-                          <MessageCircle className="w-4 h-4" />
-                          <span className="hidden sm:inline">WhatsApp</span>
-                        </a>
-                      </div>
+                      <Link
+                        href="/our_product"
+                        onClick={(e) => e.stopPropagation()}
+                        className="hidden sm:inline-flex items-center gap-1 text-xs font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-100/60 hover:bg-emerald-200/60 px-3 py-1.5 rounded-xl transition-all"
+                      >
+                        <span>View</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </Link>
                     </div>
                   </div>
                 ))}
               </div>
+
+              {/* Bottom Sticky Footer Call To Action */}
+              <div className="mt-6 pt-5 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4 bg-emerald-50/60 rounded-2xl p-4">
+                <div className="text-center sm:text-left">
+                  <p className="text-sm font-bold text-emerald-950">
+                    Ready to place an order or view full pricing?
+                  </p>
+                  <p className="text-xs text-emerald-800">
+                    Explore all categories, ingredients, and place direct WhatsApp orders on our dedicated store page.
+                  </p>
+                </div>
+
+                <Link
+                  href="/our_product"
+                  className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 flex-shrink-0"
+                >
+                  <span>Visit Our Product Page</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
 
       {/* Lightbox / Modal for Quick View */}
       {selectedProduct && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 sm:p-6 animate-fadeIn"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 sm:p-6"
           onClick={() => setSelectedProduct(null)}
         >
           <div
-            className="bg-white rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl relative border border-gray-100 animate-scaleUp"
+            className="bg-white rounded-3xl max-w-3xl w-full overflow-hidden shadow-2xl relative border border-gray-100"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close Button */}
@@ -603,18 +689,18 @@ export default function CuratedCollectionsSection() {
                     href={getWhatsAppLink(selectedProduct.name, selectedProduct.category)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 px-5 rounded-2xl text-center shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                    className="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 px-5 rounded-2xl text-center shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 text-sm"
                   >
                     <MessageCircle className="w-5 h-5" />
                     <span>Inquire on WhatsApp</span>
                   </a>
 
-                  <button
-                    onClick={() => setSelectedProduct(null)}
-                    className="px-5 py-3 rounded-2xl bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold text-sm transition-colors"
+                  <Link
+                    href="/our_product"
+                    className="px-5 py-3 rounded-2xl bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-sm transition-colors text-center"
                   >
-                    Close
-                  </button>
+                    Store Page
+                  </Link>
                 </div>
               </div>
             </div>
